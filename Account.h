@@ -1,7 +1,8 @@
 ﻿
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <iostream>
 #include <fstream>
-#include <map>
 #include <string>
 #include <string.h>
 using namespace std;
@@ -9,48 +10,67 @@ using namespace std;
 class Account
 {
 protected:
-	string name;
-	string surname;
-	string username;
-	string password;
+	char name[20];
+	char surname[20];
+	char username[20];
+	char password[20];
 	
 public:
-	Account()
-	{
-		this->name = " ";
-		this->surname = " ";
-		this->username = " ";
-		this->password = " ";
-	}
+	Account() = default;
+	~Account() = default;
 	Account(string name, string surname, string username, string password)
 	{
-		this->name = name; this->surname = surname;
-		this->username = username; this->password = password;
+		strcpy(this->name, name.c_str());
+		strcpy(this->surname, surname.c_str());
+		strcpy(this->username, username.c_str());
+		strcpy(this->password, password.c_str());
 	}
-	string GetName() { return this->name; }
-	string GetSurname() { return this->surname; }
-	string GetUsername() { return this->username; }
-	string GetPass() { return this->password; }
-	
+	char* GetName() { return this->name; }
+	char* GetSurname() { return this->surname; }
+	char* GetUsername() { return this->username; }
+	char* GetPassword() { return this->password; }
+
+	void Clear()
+	{
+		strcpy(this->name, "empty");
+		strcpy(this->surname, "empty");
+		strcpy(this->username, "empty");
+		strcpy(this->password, "empty");
+	}
 	void EnterData()
 	{
-		//check (without numbers?)
 		cin.ignore();
 		cout << "Enter your name: ";
-		getline(cin, name);
-		//check (without numbers?)
+		cin.getline(this->name, sizeof(name));
+		if (strpbrk(this->name, "0123456789"))
+		{
+			cerr << "Your name includes digits!" << endl;
+			Clear();
+			exit(0);
+		}
 		cout << "Enter your surname: ";
-		getline(cin, surname);
+		cin.getline(this->surname, sizeof(surname));
+		if (strpbrk(this->surname, "0123456789"))
+		{
+			cerr << "Your surname includes digits!" << endl;
+			Clear();
+			exit(0);
+		}
 		//check whether it already exist
 		cout << "Enter your user name: ";
-		getline(cin, username);
-		//check if it not less than 6 symbols
+		cin.getline(this->username, sizeof(username));
 		cout << "Enter your password: ";
-		getline(cin, password);
+		cin.getline(this->password, sizeof(password));
+		if (strlen(this->password) <= 6)
+		{
+			cerr << "Your pass is less than 6 symbols!" << endl;
+			Clear();
+			exit(0);
+		}
 	}
 	void SingIn()
 	{
-
+		//...
 	}
 };
 
@@ -60,17 +80,10 @@ protected:
 	bool isClubMember;
 public:
 	ClientAccount() { this->isClubMember = false; }
-	ClientAccount(string name, string surname, string username, string password, bool isClubMember)
-		: Account(name, surname, username, password)
-	{
-		this->isClubMember = false;
-	}
-	//~ClientAccount() = default;
-	bool GetClub() { return this->isClubMember; }
+	~ClientAccount() = default;
 	void CreateClientAcc()
 	{
 		EnterData();
-		getline(cin, password);
 		uint32_t tmp;
 		cout << "Are you a club member?" << endl;
 		cout << "1 - Yes" << endl;
@@ -88,6 +101,18 @@ public:
 		}break;
 		}
 	}
+	friend ostream& operator << (ostream& out, ClientAccount*& object)
+	{
+		out << "Name: " << object->name << endl;
+		out << "Surname: " << object->surname << endl;
+		out << "Username: " << object->username << endl;
+		out << "Password: " << object->password << endl;
+		if (object->isClubMember == true)
+			out << "Is a club member" << endl;
+		else if (object->isClubMember == false)
+			out << "Isn`t a club member" << endl;
+		return out;
+	}
 };
 
 class CoworkerAccount : public Account
@@ -101,7 +126,6 @@ public:
 	void CreateCoworkerAcc()
 	{
 		EnterData();
-		getline(cin, password);
 		uint32_t tmp;
 		cout << "Which rang is yours?" << endl;
 		cout << "1 - Average coworker" << endl;
@@ -125,6 +149,20 @@ public:
 		}break;
 		}
 	}
+	friend ostream& operator << (ostream& out, CoworkerAccount*& object)
+	{
+		out << "Name: " << object->name << endl;
+		out << "Surname: " << object->surname << endl;
+		out << "Username: " << object->username << endl;
+		out << "Password: " << object->password << endl;
+		if (object->rang == 1)
+			out << "Average coworker" << endl;
+		else if (object->rang == 2)
+			out << "Manager" << endl;
+		else if (object->rang == 3)
+			out << "Memeber of management team" << endl;
+		return out;
+	}
 };
 
 template<typename T>
@@ -140,7 +178,7 @@ public:
 	{
 		try 
 		{
-			this->stream.open(binFile, ios::out | ios::binary);
+			this->stream.open(binFile, ios::app | ios::binary);
 			if (!stream.is_open())
 				throw;
 			else 
@@ -157,6 +195,30 @@ public:
 			return false;
 		}
 	}
+	bool Load(T*& object, uint32_t& length)
+	{
+		try 
+		{
+			this->stream.open((binFile), ios::in | ios::binary);
+			if (!stream.is_open())
+				throw;
+			else 
+			{
+				stream.read((char*)&length, sizeof(uint32_t));
+				delete[]object;
+				object = new T[length];
+				for (size_t i = 0; i < length; i++)
+					stream.read((char*)&object[i], sizeof(T));
+				stream.close();
+				return true;
+			}
+		}
+		catch (const ifstream::failure& e)
+		{
+			cout << e.what() << endl;
+			return false;
+		}
+	}
 	T* Load()
 	{
 		try 
@@ -164,9 +226,7 @@ public:
 			T* object = new T;
 			this->stream.open((binFile), ios::in | ios::binary);
 			if (!stream.is_open())
-			{
 				throw;
-			}
 			else 
 			{
 				T buf;
@@ -189,6 +249,7 @@ void Run()
 {
 	uint32_t tmp, temp;
 	FileData <ClientAccount> dataClient;
+	FileData <CoworkerAccount> dataCoworker;
 	Account acc;
 	cout << "Hello! Menu: " << endl;
 	cout << "\t1 - Create an account" << endl;
@@ -200,8 +261,7 @@ void Run()
 	case 1:
 	{
 		ClientAccount* ca1 = new ClientAccount();
-		ClientAccount* ca = new ClientAccount("Ivan", "Fill", "JK", "1345", true);
-		CoworkerAccount cw;
+		CoworkerAccount* cw = new CoworkerAccount();
 		cout << "\t1 - Create a client account" << endl;
 		cout << "\t2 - Create a coworker account" << endl;
 		cout << "Enter: "; cin >> temp;
@@ -209,13 +269,18 @@ void Run()
 		{
 		case 1:
 		{
-			//ca1->CreateClientAcc();
-			//dataClient.Save(ca);
-			ca = dataClient.Load();
+			ca1->CreateClientAcc();
+			if (ca1->GetName() != "empty" && ca1->GetSurname() != "empty"
+				&& ca1->GetUsername() != "empty" && ca1->GetPassword() != "empty")
+				dataClient.Save(ca1);
+			else
+				cerr << "Your account didn`t saved in database";
+			//cout << ca1 << endl;
 		}break;
 		case 2:
 		{
-			cw.CreateCoworkerAcc();
+			cw->CreateCoworkerAcc();
+			dataCoworker.Save(cw);
 		}break;
 		}
 		break;
