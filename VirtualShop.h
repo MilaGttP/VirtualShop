@@ -7,6 +7,7 @@
 #include<Windows.h>
 
 using namespace std;
+using std::cout;
 
 class Worker
 {
@@ -20,8 +21,8 @@ public:
 
     Worker()
     {
-        this->name = "";
-        this->surname = "";
+        this->name = " ";
+        this->surname = " ";
         this->rang = 0;
         this->age = 0;
     }
@@ -42,7 +43,7 @@ public:
         return this->rang;
     }
 
-    friend istream& operator >> (istream& in, Worker object)
+    friend istream& operator >> (istream& in, Worker &object)
     {
         cout << "Name: ";
         in >> object.name;
@@ -71,51 +72,5 @@ public:
         this->surname.clear();
         this->age = 0;
         this->rang = 0;
-    }
-};
-
-class Team
-{
-public:
-    vector<Worker> workers;
-    size_t length = 0;
-    int num = 0;
-
-    void AddWorker(Worker worker)
-    {
-        this->workers.push_back(worker);
-    }
-
-    void Show()
-    {
-        for (auto& item : workers)
-        {
-            cout << item << endl;
-        }
-    }
-
-    void SortByRang() {
-        sort(workers.begin(), workers.end(), [](Worker w1, Worker w2) { return w1.GetRang() < w2.GetRang(); });
-        system("pause");
-    }
-
-    void Find()
-    {
-        
-        system("pause");
-    }
-
-    void DeleteWorker()
-    {
-        string name;
-        cin.ignore();
-        cout << "Enter worker for delete: " << endl;
-        cin >> name;
-        auto iter = std::find_if(workers.begin(), workers.end(),
-            [=](Worker& s) { return s.GetName() == name; } );
-        if (iter != workers.end())
-            workers.erase(iter);
-        else
-            cout << "Object not found!.\n";
     }
 };

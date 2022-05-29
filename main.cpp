@@ -1,5 +1,7 @@
-#include "VirtualShop.h"
 
+#include "VirtualShop.h"
+#include "Discount.h"
+#include "Team.h"
 
 int main()
 {
@@ -24,9 +26,9 @@ int main()
         case 1:
         {
             system("cls");
-            Worker worker;
-            cin >> worker;
-            team.AddWorker(worker);
+            Worker * worker = new Worker;
+            cin >> *worker;
+            team.AddWorker(*worker);
         }break;
 
         case 2:
@@ -36,15 +38,30 @@ int main()
 
         case 3:
         {
+            team.SortByRang();
+            team.Show();
+        }break;
+
+        case 4:
+        {
             string name;
             cout << "Enter>";
             cin >> name;
-            team.DeleteWorker();
+            team.Find(name);
+        }break;
+
+        case 5:
+        {
+            string name;
+            cout << "Enter>";
+            cin >> name;
+            team.DeleteWorker(name);
         }break;
         }
 
         system("pause");
     }
-
+    
+    
     return 0;
 }
