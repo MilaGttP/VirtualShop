@@ -18,7 +18,6 @@ private:
 	string expirationDate;
 	uint32_t productID;
 
-	
 public:
 	
 	Product()
@@ -96,7 +95,6 @@ public:
 	this->productID = NULL;
 	this->productPrice = NULL;
 	}
-
 };
 
 

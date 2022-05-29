@@ -10,10 +10,9 @@
 
 using namespace std;
 
-
 void userLog()
 {
-	//productList ProductList;
+	//ProductList productList;
 
 	uint32_t userChoice;
 	string clubman;
@@ -41,11 +40,11 @@ void userLog()
 		cin >> clubman;
 		if (clubman == "y")
 		{
-			//cout << "Hello " << GetName() << " " << GetSurname << "VIP" << "!";
+			//cout << "Hello " << GetName() << " " << GetSurname() << "VIP" << "!";
 		}
 		else
 		{
-			//cout << "Hello "  << GetName() << " " << GetSurname<< "!";
+			//cout << "Hello "  << GetName() << " " << GetSurname() << "!";
 		}
 	}break;
 	default:
