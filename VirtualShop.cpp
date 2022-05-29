@@ -5,6 +5,7 @@
 #include <conio.h>
 #include "Product.h"
 #include "ProductList.h"
+#include "Basket.h"
 
 //#include "Account.h"
 
@@ -56,12 +57,7 @@ void userLog()
 	cout << "Product list: " << endl;
 	//ProductList.ShowList();
 
-	cout << "Enter the number of the selected product :	";
-	cin >> userChoice;
-	if (userChoice <= 0)
-	{
-		cout << "Enter a value greater than 0!" << endl;
-	}
+	
 
 
 

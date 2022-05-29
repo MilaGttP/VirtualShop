@@ -2,14 +2,17 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 class ProductList
 {
+protected:
+	vector<Product> products;
+	uint32_t length = size(products);
 
 public:
 
-	vector<Product> products;
-	uint32_t length = size(products);
+	
 
 	void addProduct(Product prod)
 	{
@@ -25,6 +28,8 @@ public:
 		}
 		_getch();
 	}
+
+
 
 
 };
