@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <conio.h>
 #include <string>
 #include <string.h>
 using namespace std;
@@ -30,11 +31,57 @@ public:
 	char* GetUsername() { return this->username; }
 	char* GetPassword() { return this->password; }
 
-	bool IsExist(char name[], char surname[], char username[], char password[])
+	bool IsExistingUsername(string fileName)
+	{
+		fstream fin;
+		Account acc;
+		fin.open(fileName, ios::in | ios::binary);
+		while (!fin)
+		{
+			fin.read((char*)&acc, sizeof(acc));
+			if (acc.username == this->username)
+			{
+				return true;
+				break;
+			}
+			else
+				return false;
+		}
+		fin.close();
+	}
+	bool IsExistingData(string fileName)
+	{
+		fstream fin;
+		Account acc;
+		fin.open(fileName, ios::in | ios::binary);
+		while (!fin)
+		{
+			fin.read((char*)&acc, sizeof(acc));
+			if (acc.username == this->username && acc.password == this->password)
+			{
+				return true;
+				break;
+			}
+			else
+				return false;
+		}
+		fin.close();
+	}
+	bool IsExistUsername(char username[])
 	{
 		string binFileCl = "ClientAccount.bin";
 		string binFileCw = "CoworkerAccount.bin";
-
+		if (IsExistingUsername(binFileCl) == true || IsExistingUsername(binFileCw) == true)
+			return true;
+		return false;
+	}
+	
+	bool IsExistData(char username[], char pass[])
+	{
+		string binFileCl = "ClientAccount.bin";
+		string binFileCw = "CoworkerAccount.bin";
+		if (IsExistingData(binFileCl) == true || IsExistingData(binFileCw) == true)
+			return true;
 		return false;
 	}
 	void EnterData()
@@ -56,7 +103,7 @@ public:
 		}
 		cout << "Enter your user name: ";
 		cin.getline(this->username, sizeof(username));
-		if (IsExist(this->name, this->surname, this->username, this->password) == true)
+		if (IsExistUsername(this->username) == true)
 		{
 			cerr << "This username has already exists!" << endl;
 			exit(0);
@@ -71,11 +118,15 @@ public:
 	}
 	void SingIn()
 	{
-		EnterData();
-		if (IsExist(this->name, this->surname, this->username, this->password) == true)
+		cin.ignore();
+		cout << "Enter your username: ";
+		cin.getline(this->username, sizeof(username));
+		cout << "Enter your password: ";
+		cin.getline(this->password, sizeof(password));
+		if (IsExistData(this->username, this->password) == true)
 			cout << "Success!" << endl;
-		else
-			cerr << "You cannot sign in not existing account!" << endl;
+		else if (IsExistData(this->username, this->password) == false)
+			cerr << "This account doesn`t exist!" << endl;
 	}
 };
 
