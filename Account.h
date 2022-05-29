@@ -32,7 +32,10 @@ public:
 
 	bool IsExist(char name[], char surname[], char username[], char password[])
 	{
+		string binFileCl = "ClientAccount.bin";
+		string binFileCw = "CoworkerAccount.bin";
 
+		return false;
 	}
 	void EnterData()
 	{
@@ -171,10 +174,11 @@ template<typename T>
 class FileData
 {
 protected:
-	string binFile = "accountData.bin";
+	string binFile;
 	fstream stream;
 public:
 	FileData() = default;
+	FileData(string fileName) { this->binFile = fileName; }
 	~FileData() = default;
 	bool Save(T* object)
 	{
@@ -236,8 +240,8 @@ void Run()
 	{
 	case 1:
 	{
-		FileData <ClientAccount> dataClient;
-		FileData <CoworkerAccount> dataCoworker;
+		FileData <ClientAccount> dataClient ("ClientAccount.bin");
+		FileData <CoworkerAccount> dataCoworker("CoworkerAccount.bin");
 		ClientAccount* clientAcc = new ClientAccount();
 		CoworkerAccount* coworkerAcc = new CoworkerAccount();
 		cout << "\t1 - Create a client account" << endl;
