@@ -30,12 +30,9 @@ public:
 	char* GetUsername() { return this->username; }
 	char* GetPassword() { return this->password; }
 
-	void Clear()
+	bool IsExist(char name[], char surname[], char username[], char password[])
 	{
-		strcpy(this->name, "empty");
-		strcpy(this->surname, "empty");
-		strcpy(this->username, "empty");
-		strcpy(this->password, "empty");
+
 	}
 	void EnterData()
 	{
@@ -45,7 +42,6 @@ public:
 		if (strpbrk(this->name, "0123456789"))
 		{
 			cerr << "Your name includes digits!" << endl;
-			Clear();
 			exit(0);
 		}
 		cout << "Enter your surname: ";
@@ -53,24 +49,30 @@ public:
 		if (strpbrk(this->surname, "0123456789"))
 		{
 			cerr << "Your surname includes digits!" << endl;
-			Clear();
 			exit(0);
 		}
-		//check whether it already exist
 		cout << "Enter your user name: ";
 		cin.getline(this->username, sizeof(username));
+		if (IsExist(this->name, this->surname, this->username, this->password) == true)
+		{
+			cerr << "This username has already exists!" << endl;
+			exit(0);
+		}
 		cout << "Enter your password: ";
 		cin.getline(this->password, sizeof(password));
-		if (strlen(this->password) <= 6)
+		if (strlen(this->password) < 6)
 		{
-			cerr << "Your pass is less than 6 symbols!" << endl;
-			Clear();
+			cerr << "Your password is less than 6 symbols!" << endl;
 			exit(0);
 		}
 	}
 	void SingIn()
 	{
-		//...
+		EnterData();
+		if (IsExist(this->name, this->surname, this->username, this->password) == true)
+			cout << "Success!" << endl;
+		else
+			cerr << "You cannot sign in not existing account!" << endl;
 	}
 };
 
@@ -160,7 +162,7 @@ public:
 		else if (object->rang == 2)
 			out << "Manager" << endl;
 		else if (object->rang == 3)
-			out << "Memeber of management team" << endl;
+			out << "Memeber of the management team" << endl;
 		return out;
 	}
 };
@@ -188,30 +190,6 @@ public:
 				stream.close();
 			}
 			return true;
-		}
-		catch (const ifstream::failure& e)
-		{
-			cout << e.what() << endl;
-			return false;
-		}
-	}
-	bool Load(T*& object, uint32_t& length)
-	{
-		try 
-		{
-			this->stream.open((binFile), ios::in | ios::binary);
-			if (!stream.is_open())
-				throw;
-			else 
-			{
-				stream.read((char*)&length, sizeof(uint32_t));
-				delete[]object;
-				object = new T[length];
-				for (size_t i = 0; i < length; i++)
-					stream.read((char*)&object[i], sizeof(T));
-				stream.close();
-				return true;
-			}
 		}
 		catch (const ifstream::failure& e)
 		{
@@ -248,8 +226,6 @@ public:
 void Run()
 {
 	uint32_t tmp, temp;
-	FileData <ClientAccount> dataClient;
-	FileData <CoworkerAccount> dataCoworker;
 	Account acc;
 	cout << "Hello! Menu: " << endl;
 	cout << "\t1 - Create an account" << endl;
@@ -260,8 +236,10 @@ void Run()
 	{
 	case 1:
 	{
-		ClientAccount* ca1 = new ClientAccount();
-		CoworkerAccount* cw = new CoworkerAccount();
+		FileData <ClientAccount> dataClient;
+		FileData <CoworkerAccount> dataCoworker;
+		ClientAccount* clientAcc = new ClientAccount();
+		CoworkerAccount* coworkerAcc = new CoworkerAccount();
 		cout << "\t1 - Create a client account" << endl;
 		cout << "\t2 - Create a coworker account" << endl;
 		cout << "Enter: "; cin >> temp;
@@ -269,18 +247,15 @@ void Run()
 		{
 		case 1:
 		{
-			ca1->CreateClientAcc();
-			if (ca1->GetName() != "empty" && ca1->GetSurname() != "empty"
-				&& ca1->GetUsername() != "empty" && ca1->GetPassword() != "empty")
-				dataClient.Save(ca1);
-			else
-				cerr << "Your account didn`t saved in database";
-			//cout << ca1 << endl;
+			clientAcc->CreateClientAcc();
+			dataClient.Save(clientAcc);
+			cout << endl;
 		}break;
 		case 2:
 		{
-			cw->CreateCoworkerAcc();
-			dataCoworker.Save(cw);
+			coworkerAcc->CreateCoworkerAcc();
+			dataCoworker.Save(coworkerAcc);
+			cout << endl;
 		}break;
 		}
 		break;
