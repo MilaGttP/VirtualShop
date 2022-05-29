@@ -6,6 +6,7 @@
 #include <conio.h>
 #include <string>
 #include <string.h>
+#include "FileData.h"
 using namespace std;
 
 class Account
@@ -31,15 +32,17 @@ public:
 	char* GetUsername() { return this->username; }
 	char* GetPassword() { return this->password; }
 
-	bool IsExistingUsername(string fileName)
+	bool IsExistingUsername(string fileName, char username[])
 	{
+		Account* acc = new Account();
 		fstream fin;
-		Account acc;
 		fin.open(fileName, ios::in | ios::binary);
-		while (!fin)
+		while (!fin.eof())
 		{
-			fin.read((char*)&acc, sizeof(acc));
-			if (acc.username == this->username)
+			Account buff;
+			fin.read((char*)&buff, sizeof(buff));
+			*acc = buff;
+			if (strcmp(buff.username, username) == 0)
 			{
 				return true;
 				break;
@@ -49,15 +52,17 @@ public:
 		}
 		fin.close();
 	}
-	bool IsExistingData(string fileName)
+	bool IsExistingData(string fileName, char username[], char password[])
 	{
+		Account* acc = new Account();
 		fstream fin;
-		Account acc;
 		fin.open(fileName, ios::in | ios::binary);
-		while (!fin)
+		while (!fin.eof())
 		{
-			fin.read((char*)&acc, sizeof(acc));
-			if (acc.username == this->username && acc.password == this->password)
+			Account buff;
+			fin.read((char*)&buff, sizeof(buff));
+			*acc = buff;
+			if (strcmp(buff.username, username) == 0 && strcmp(buff.password, password) == 0)
 			{
 				return true;
 				break;
@@ -71,7 +76,7 @@ public:
 	{
 		string binFileCl = "ClientAccount.bin";
 		string binFileCw = "CoworkerAccount.bin";
-		if (IsExistingUsername(binFileCl) == true || IsExistingUsername(binFileCw) == true)
+      	if (IsExistingUsername(binFileCl, username) == true || IsExistingUsername(binFileCw, username) == true)
 			return true;
 		return false;
 	}
@@ -80,7 +85,7 @@ public:
 	{
 		string binFileCl = "ClientAccount.bin";
 		string binFileCw = "CoworkerAccount.bin";
-		if (IsExistingData(binFileCl) == true || IsExistingData(binFileCw) == true)
+		if (IsExistingData(binFileCl, username, pass) == true || IsExistingData(binFileCw, username, pass) == true)
 			return true;
 		return false;
 	}
@@ -103,7 +108,7 @@ public:
 		}
 		cout << "Enter your user name: ";
 		cin.getline(this->username, sizeof(username));
-		if (IsExistUsername(this->username) == true)
+		if (IsExistUsername(this->username))
 		{
 			cerr << "This username has already exists!" << endl;
 			exit(0);
@@ -125,7 +130,7 @@ public:
 		cin.getline(this->password, sizeof(password));
 		if (IsExistData(this->username, this->password) == true)
 			cout << "Success!" << endl;
-		else if (IsExistData(this->username, this->password) == false)
+		else
 			cerr << "This account doesn`t exist!" << endl;
 	}
 };
@@ -170,6 +175,7 @@ public:
 		return out;
 	}
 };
+
 
 class CoworkerAccount : public Account
 {
@@ -220,63 +226,6 @@ public:
 		return out;
 	}
 };
-
-template<typename T>
-class FileData
-{
-protected:
-	string binFile;
-	fstream stream;
-public:
-	FileData() = default;
-	FileData(string fileName) { this->binFile = fileName; }
-	~FileData() = default;
-	bool Save(T* object)
-	{
-		try 
-		{
-			this->stream.open(binFile, ios::app | ios::binary);
-			if (!stream.is_open())
-				throw;
-			else 
-			{
-				T buf = *object;
-				stream.write((char*)&buf, sizeof(buf));
-				stream.close();
-			}
-			return true;
-		}
-		catch (const ifstream::failure& e)
-		{
-			cout << e.what() << endl;
-			return false;
-		}
-	}
-	T* Load()
-	{
-		try 
-		{
-			T* object = new T;
-			this->stream.open((binFile), ios::in | ios::binary);
-			if (!stream.is_open())
-				throw;
-			else 
-			{
-				T buf;
-				stream.read((char*)&buf, sizeof(buf));
-				*object = buf;
-				stream.close();
-			}
-			return object;
-		}
-		catch (const ifstream::failure& e)
-		{
-			cout << e.what() << endl;
-			return nullptr;
-		}
-	}
-};
-
 
 void Run()
 {
