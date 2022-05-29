@@ -3,14 +3,17 @@
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
-#include "productList.h"
+#include "Product.h"
+#include "ProductList.h"
+
+//#include "Account.h"
 
 using namespace std;
 
 
 void userLog()
 {
-	productList ProductList;
+	//productList ProductList;
 
 	uint32_t userChoice;
 	string clubman;
@@ -26,25 +29,23 @@ void userLog()
 	{
 		system("cls");
 		cout << "You enter as an employee!" << endl;
-		cout << "Enter login: ";
-		cout << "Enter password: ";
+		//SingIn();
 	}break;
 	case 2:
 	{
 		system("cls");
 		cout << "You log in as a customer!" << endl;
-		cout << "Enter login: ";
-		cout << "Enter password: ";
+		//SingIn();
 
 		cout << "Are you a member of the club? (y/n)";
 		cin >> clubman;
 		if (clubman == "y")
 		{
-			cout << "Hello " << "VIP" << "!";
+			//cout << "Hello " << GetName() << " " << GetSurname << "VIP" << "!";
 		}
 		else
 		{
-			cout << "Hello " << "!";
+			//cout << "Hello "  << GetName() << " " << GetSurname<< "!";
 		}
 	}break;
 	default:
@@ -52,8 +53,17 @@ void userLog()
 		_getch();
 		break;
 	}
+	system("cls");
 	cout << "Product list: " << endl;
-	ProductList.ShowList();
+	//ProductList.ShowList();
+
+	cout << "Enter the number of the selected product :	";
+	cin >> userChoice;
+	if (userChoice <= 0)
+	{
+		cout << "Enter a value greater than 0!" << endl;
+	}
+
 
 
 }
@@ -63,7 +73,9 @@ void userLog()
 
 int main()
 {
-	productList ProductList;
+	ProductList productList;
+	
+
 	while (true)
 	{
 		system("cls");
@@ -75,20 +87,22 @@ int main()
 		uint32_t menuChoice;
 		cin >> menuChoice;
 
+
 		switch (menuChoice)
 		{
 		case 1:
 		{
 			system("cls");
-			Product product;
-			cin >> product;
-			ProductList.addProduct(product);
+			
+			Product* prod = new Product;
+			cin >> *prod;
+			productList.addProduct(*prod);
 		}break;
 		case 2:
 		{
 			system("cls");
-			cout << "Product list: " << endl;
-			ProductList.ShowList();
+			productList.ShowList();
+
 		}break;
 		default:
 			cout << "Enter a valid value!";

@@ -142,7 +142,8 @@
     <ClCompile Include="VirtualShop.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="productList.h" />
+    <ClInclude Include="Product.h" />
+    <ClInclude Include="ProductList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
