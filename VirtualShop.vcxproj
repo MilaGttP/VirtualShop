@@ -139,7 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="VirtualShop.cpp" />
+    <ClCompile Include="Account.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FileData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

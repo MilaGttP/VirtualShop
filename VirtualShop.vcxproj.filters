@@ -15,8 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="VirtualShop.cpp">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="Account.h">
+      <Filter>Файлы заголовков</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FileData.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
