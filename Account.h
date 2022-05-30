@@ -112,7 +112,7 @@ public:
 			exit(0);
 		}
 	}
-	uint32_t SingIn()
+	uint32_t SignIn()
 	{
 		uint32_t tmp;
 		cout << "Which account is yours?" << endl;
@@ -283,7 +283,7 @@ void Run()
 	}
 	case 2:
 	{
-		acc.SingIn();
+		acc.SignIn();
 		break;
 	}
 	case 3:
