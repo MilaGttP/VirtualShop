@@ -112,7 +112,7 @@ public:
 			exit(0);
 		}
 	}
-	void SingIn()
+	uint32_t SingIn()
 	{
 		uint32_t tmp;
 		cout << "Which account is yours?" << endl;
@@ -130,14 +130,20 @@ public:
 		case 1:
 		{
 			if (IsExistingData("ClientAccount.bin", this->username, this->password) == true)
+			{
 				cout << "Success!" << endl;
+				return 1;
+			}
 			else
 				cerr << "This account doesn`t exist!" << endl;
 		}break;
 		case 2:
 		{
 			if (IsExistingData("CoworkerAccount.bin", this->username, this->password) == true)
+			{
 				cout << "Success!" << endl;
+				return 2;
+			}
 			else
 				cerr << "This account doesn`t exist!" << endl;
 		}break;
