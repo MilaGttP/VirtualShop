@@ -80,14 +80,6 @@ public:
 			return true;
 		return false;
 	}
-	bool IsExistData(char username[], char pass[])
-	{
-		string binFileCl = "ClientAccount.bin";
-		string binFileCw = "CoworkerAccount.bin";
-		if (IsExistingData(binFileCl, username, pass) == true || IsExistingData(binFileCw, username, pass) == true)
-			return true;
-		return false;
-	}
 	void EnterData()
 	{
 		cin.ignore();
@@ -122,15 +114,34 @@ public:
 	}
 	void SingIn()
 	{
+		uint32_t tmp;
+		cout << "Which account is yours?" << endl;
+		cout << "\t1 - Client" << endl;
+		cout << "\t2 - Worker" << endl;
+		cout << "Enter wanted case: ";
+		cin >> tmp;
 		cin.ignore();
 		cout << "Enter your username: ";
 		cin.getline(this->username, sizeof(username));
 		cout << "Enter your password: ";
 		cin.getline(this->password, sizeof(password));
-		if (IsExistData(this->username, this->password) == true)
-			cout << "Success!" << endl;
-		else
-			cerr << "This account doesn`t exist!" << endl;
+		switch (tmp)
+		{
+		case 1:
+		{
+			if (IsExistingData("ClientAccount.bin", this->username, this->password) == true)
+				cout << "Success!" << endl;
+			else
+				cerr << "This account doesn`t exist!" << endl;
+		}break;
+		case 2:
+		{
+			if (IsExistingData("CoworkerAccount.bin", this->username, this->password) == true)
+				cout << "Success!" << endl;
+			else
+				cerr << "This account doesn`t exist!" << endl;
+		}break;
+		}
 	}
 };
 
