@@ -141,6 +141,7 @@ protected:
 public:
 	ClientAccount() { this->isClubMember = false; }
 	~ClientAccount() = default;
+	bool GetClub() { return this->isClubMember; }
 	void CreateClientAcc()
 	{
 		EnterData();
