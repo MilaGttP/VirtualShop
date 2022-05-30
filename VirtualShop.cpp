@@ -3,18 +3,17 @@
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
+
 #include "Product.h"
 #include "ProductList.h"
 #include "Basket.h"
-
 //#include "Account.h"
 
 using namespace std;
 
 void userLog()
 {
-	//ProductList productList;
-
+	
 	uint32_t userChoice;
 	string clubman;
 
@@ -57,7 +56,7 @@ void userLog()
 	cout << "Product list: " << endl;
 	//ProductList.ShowList();
 
-	addProdToBask();
+	//addProdToBask();
 
 
 

@@ -139,10 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="id.cpp" />
     <ClCompile Include="VirtualShop.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Account.h" />
     <ClInclude Include="Basket.h" />
+    <ClInclude Include="FileData.h" />
+    <ClInclude Include="id.h" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="ProductList.h" />
   </ItemGroup>

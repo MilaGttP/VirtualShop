@@ -2,14 +2,13 @@
 
 #include <iostream>
 #include <iomanip>
-#include <fstream>
 #include <string>
-#include <algorithm>
 #include <vector>
+#include "id.h"
 
 using namespace std;
 
-class Product
+class Product : public Id
 {
 private:
 	string productName;
@@ -20,6 +19,16 @@ private:
 
 public:
 	
+	Product& operator =(const Product& b)
+	{
+
+	}
+	bool operator ==(const Product& b) const 
+	{
+
+	}
+
+
 	Product()
 	{
 		this->productName = "";	
@@ -38,7 +47,7 @@ public:
 		this->productID = productID;
 	}
 	
-	string GetProductName()
+	/*string GetProductName()
 	{
 		return this->productName;
 	}
@@ -53,12 +62,11 @@ public:
 	string GetExpirationDate()
 	{
 		return this->expirationDate;
-	}
+	}*/
 	uint32_t GetProductID()
 	{
 		return this->productID;
 	}
-	
 	
 	friend istream& operator >> (istream& in, Product &object) 
 	{
@@ -71,18 +79,18 @@ public:
 		in >> object.productNumber;
 		cout << "Expiration date ->";
 		in >> object.expirationDate;
-		object.productID+=1;
+		object.productID = Id::getId();
 
 		return in;
 	}
 
 	friend ostream& operator << (ostream& out, Product& object)
 	{
+		out << "Product ID -> " << object.productID << endl;
 		out << "Name -> " << object.productName << endl;
 		out << "Price -> " << object.productPrice << endl;
 		out << "Number of products -> " << object.productNumber << endl;
 		out << "Expiration date -> " << object.expirationDate << endl;
-		out << "Product ID -> " << object.productID << endl;
 
 		return out;
 	}
