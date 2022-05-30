@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Account.h" />
+    <ClInclude Include="FileData.h" />
     <ClInclude Include="Menu.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -1,47 +1,37 @@
 #include <iostream>
 #include <fstream>
-#include <windows.h> 
-#include<string>
-
+#include <Windows.h> 
+#include <string>
+#include "Account.h"
 
 
 
 using namespace std;
 
 
-struct delo
+class Print
 {
-    string Employee;
-    string Ñlient;
-    string Basket;
-    string Product;
-    string Shop;
+public:
+    void PrintClient()
+    {
+        ClientAccount* client = new ClientAccount();
+        FileData <ClientAccount> file("ClientAccount.bin");
+        client = file.Load("ClientAccount.bin");
+        cout << "Client name: " << client->GetName() << endl;
+        cout << "Client surname: " << client->GetSurname() << endl;
+        cout << "Club: " << client->GetClub() << endl;
+    }
+    void PrintWorker()
+    {
+        CoworkerAccount* coworker = new CoworkerAccount();
+        FileData <CoworkerAccount> file("CoworkerAccount.bin");
+        coworker = file.Load("CoworkerAccount.bin");
+        cout << "Coworker name: " << coworker->GetName() << endl;
+        cout << "Coworker surname: " << coworker->GetSurname() << endl;
+        cout << "Rang: " << coworker->GetRang() << endl;
+    }
 };
 
-void InfoEmployee(string Employee)
-{
-
-}
-
-void InfoClient(string Client)
-{
-
-}
-
-void InfoBasket(string Basket)
-{
-
-}
-
-void InfoProduct(string Product)
-{
-
-}
-
-void InfoShop(string Shop)
-{
-
-}
 
 
 void run()
@@ -50,16 +40,23 @@ void run()
     SetConsoleOutputCP(1251);
 
     string client = "";
-    short menu = -1;
-    do
+    uint32_t tmp;
+    Print print;
+    cout << "MENU";
+    cout << "1 - Worker;" << endl;
+    cout << "2 - Client;" << endl;
+    cout << "Hide menu item: " << endl;
+    cin >> tmp;
+    switch (tmp)
     {
-        cout << "MENU";
-        cout << "1 - Employee;" << endl;
-        cout << "2 - Client;" << endl;
-        cout << "3 - Basket;" << endl;
-        cout << "4 - Product;" << endl;
-        cout << "5 - Shop;" << endl;
-        cout << "Hide menu item: " << endl;
-        cin >> menu;
-    } while (true);
+    case 1:
+    {
+        print.PrintWorker();
+        break;
+    }
+    case 2:
+    {
+        print.PrintClient();
+        break;
+    }
 }

@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/FileData.h
+/Account.h
+/ClientAccount.bin
+/CoworkerAccount.bin
