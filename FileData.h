@@ -1,6 +1,5 @@
 
 #pragma once
-#define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
 #include <fstream>
@@ -23,13 +22,12 @@ public:
 	{
 		try
 		{
-			this->stream.open(binFile, ios::app | ios::binary);
+			this->stream.open(binFile, ios::out | ios::binary);
 			if (!stream.is_open())
 				throw;
 			else
 			{
 				T buf = *object;
-				cout << endl;
 				stream.write((char*)&buf, sizeof(buf));
 				stream.close();
 			}

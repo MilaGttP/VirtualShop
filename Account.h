@@ -80,7 +80,6 @@ public:
 			return true;
 		return false;
 	}
-	
 	bool IsExistData(char username[], char pass[])
 	{
 		string binFileCl = "ClientAccount.bin";
