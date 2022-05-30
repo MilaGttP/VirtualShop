@@ -28,7 +28,7 @@ public:
 		cout << "Choose products" << endl;
 		cout << "Enter the name of the selected product :	";
 		cin >> userFind;
-		Product* temp = MyBasket.SearchProduct(userFind);
+		Product temp = MyBasket.SearchProduct(userFind);
 	
 		this->MyBasket.products.push_back(temp);
 	}

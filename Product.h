@@ -15,10 +15,10 @@ private:
 	uint32_t productPrice;
 	string productNumber;
 	string expirationDate;
-	uint32_t productID;
+	
 
 public:
-	
+	uint32_t productID;
 	Product()
 	{
 		this->productName = "";	
@@ -68,6 +68,10 @@ public:
 
 		return out;
 	}
+
+	friend bool operator==(Product& item, Product& value);
+
+	friend Product& operator=(Product& b);
 	
 	~Product()
 	{
@@ -78,6 +82,12 @@ public:
 	this->productPrice = NULL;
 	}
 };
+
+bool operator==(Product& item, Product& value)
+{
+	return item.GetProductID() == value.GetProductID();
+}
+
 
 
 
