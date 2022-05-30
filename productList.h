@@ -12,7 +12,6 @@ protected:
 
 public:
 
-	
 
 	void addProduct(Product prod)
 	{
@@ -28,8 +27,6 @@ public:
 		}
 		_getch();
 	}
-
-
 
 
 };

@@ -57,7 +57,7 @@ void userLog()
 	cout << "Product list: " << endl;
 	//ProductList.ShowList();
 
-	
+	addProdToBask();
 
 
 

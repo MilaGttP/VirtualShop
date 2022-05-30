@@ -10,26 +10,29 @@ class Basket
 {
 protected:
 	vector<Basket> MyBasket;
-
 	uint32_t summBasket;
 
 public:
 	
 	void addProdToBask(Basket bskt)
 	{
-		string result;
+		string userFind;
 		cout << "Choose products" << endl;
 		cout << "Enter the name of the selected product :	";
-		getline(cin, result);
+		getline(cin, userFind);
 
-		find(ProductList.begin(), ProductList.end(), result);
+		auto result = find(products.begin(), products.end(), userFind);
 
-		/*if (t <= 0)
+		if (result == products.end())
 		{
-			cout << "Enter a value greater than 0!" << endl;
-		}*/
-
-		this->MyBasket.push_back(bskt);
+			cout << "The product is not available!" << endl;
+		}
+		else
+		{
+			cout << "Product added to basket" << endl;
+			this->MyBasket.push_back(result);
+		}
+		
 
 	}
 
