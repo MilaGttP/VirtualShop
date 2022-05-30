@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="id.cpp" />
     <ClCompile Include="VirtualShop.cpp" />
   </ItemGroup>
   <ItemGroup>

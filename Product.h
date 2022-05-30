@@ -19,16 +19,6 @@ private:
 
 public:
 	
-	Product& operator =(const Product& b)
-	{
-
-	}
-	bool operator ==(const Product& b) const 
-	{
-
-	}
-
-
 	Product()
 	{
 		this->productName = "";	
@@ -47,22 +37,6 @@ public:
 		this->productID = productID;
 	}
 	
-	/*string GetProductName()
-	{
-		return this->productName;
-	}
-	uint32_t GetProductPrice()
-	{
-		return this->productPrice;
-	}
-	string GetProductNumber()
-	{
-		return this->productNumber;
-	}
-	string GetExpirationDate()
-	{
-		return this->expirationDate;
-	}*/
 	uint32_t GetProductID()
 	{
 		return this->productID;
