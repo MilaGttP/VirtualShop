@@ -3,7 +3,6 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <fstream>
 
 
 class Basket
@@ -33,11 +32,20 @@ public:
 		this->MyBasket.products.push_back(temp);
 	}
 
-	void summBask(Basket bskt)
+	/*Basket SearchPrice()
 	{
-		Product tmp = MyBasket.SearchPrice();
+		auto item = find(MyBasket.begin(), MyBasket.end(), [=](Basket& p1) { return p1.productPrice == id; });
+		auto index = distance(MyBasket.begin(), item);
+
+		return MyBasket[index];
+	}*/
+
+
+	/*void summBask(Basket bskt)
+	{
+		Basket tmp = MyBasket.SearchPrice();
 		summBask += tmp;
-	}
+	}*/
 
 };
 

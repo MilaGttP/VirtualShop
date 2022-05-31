@@ -29,25 +29,17 @@ public:
 		auto item = find(products.begin(), products.end(), [=](Product & p1) { return p1.productID == id; });
 		auto index = distance(products.begin(), item);
 
-	/*	if (item == products.end())
+		if (item == products.end())
 		{
 			cout << "The product is not available!" << endl;
 		}
 		else
 		{
 			cout << "Product added to basket" << endl;
-		}*/
+		}
 		
 		return products[index];
-
-	}
-
-	Product SearchPrice()
-	{
-		auto item = find(products.begin(), products.end(), [=](Product& p1) { return p1.productPrice == id; });
-		auto index = distance(products.begin(), item);
-
-		return products[index];
+	
 	}
 
 
