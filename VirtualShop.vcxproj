@@ -142,6 +142,17 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="VirtualShop.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Account.h" />
+    <ClInclude Include="Basket.h" />
+    <ClInclude Include="ClientPage.h" />
+    <ClInclude Include="Discount.h" />
+    <ClInclude Include="FileData.h" />
+    <ClInclude Include="GreetWork.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Product.h" />
+    <ClInclude Include="Team.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

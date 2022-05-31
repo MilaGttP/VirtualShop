@@ -28,7 +28,7 @@ public:
 
     void Find(string name)
     {
-        sort(workers.begin(), workers.end(), [](Worker w1, Worker w2) { return w1.GetName() < w2.GetName(); });
+        find(workers.begin(), workers.end(), [](Worker w1, Worker w2) { return w1.GetName() == w2.GetName(); });
         system("pause");
     }
 
