@@ -12,12 +12,13 @@ class Product : public Id
 {
 private:
 	string productName;
-	uint32_t productPrice;
+	
 	string productNumber;
 	string expirationDate;
 	
 
 public:
+	uint32_t productPrice;
 	uint32_t productID;
 	Product()
 	{
@@ -70,9 +71,9 @@ public:
 	}
 
 	friend bool operator==(Product& item, Product& value);
-
-	friend Product& operator=(Product& b);
 	
+	Product& operator=(Product& t);
+
 	~Product()
 	{
 	this->productName.clear();
@@ -88,7 +89,10 @@ bool operator==(Product& item, Product& value)
 	return item.GetProductID() == value.GetProductID();
 }
 
-
+Product& Product::operator=(Product& t)
+{
+	return t;
+}
 
 
 

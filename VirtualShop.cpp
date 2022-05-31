@@ -13,7 +13,7 @@ using namespace std;
 
 void userLog()
 {
-	
+
 	uint32_t userChoice;
 	string clubman;
 
@@ -56,7 +56,7 @@ void userLog()
 	cout << "Product list: " << endl;
 	//ProductList.ShowList();
 
-	//addProdToBask();
+	
 
 
 

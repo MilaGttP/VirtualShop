@@ -42,4 +42,13 @@ public:
 
 	}
 
+	Product SearchPrice()
+	{
+		auto item = find(products.begin(), products.end(), [=](Product& p1) { return p1.productPrice == id; });
+		auto index = distance(products.begin(), item);
+
+		return products[index];
+	}
+
+
 };

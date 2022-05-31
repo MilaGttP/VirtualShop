@@ -33,6 +33,12 @@ public:
 		this->MyBasket.products.push_back(temp);
 	}
 
+	void summBask(Basket bskt)
+	{
+		Product tmp = MyBasket.SearchPrice();
+		summBask += tmp;
+	}
+
 };
 
 
