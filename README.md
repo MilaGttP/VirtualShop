@@ -7,3 +7,4 @@
 #Project description: VirtualShop is a small virtual store. You must first log in or register.
 After that, a menu will be issued (one for store employees and the other for customers).
 Then you can choose to purchase the product and display the check, or functions for the employee (show the list of customers, add a product).
+ 
